@@ -62,7 +62,7 @@ public class TelnetLogAppender extends AbstractAppender
             {
                 if (!(message.startsWith("<")
                         || message.startsWith("[Server")
-                        || message.startsWith("[CONSOLE") || message.startsWith("[TotalFreedomMod] [ADMIN]")))
+                        || message.startsWith("[CONSOLE") || message.startsWith("[RubyFreedomMod] [ADMIN]")))
                 {
                     return;
                 }
@@ -73,7 +73,7 @@ public class TelnetLogAppender extends AbstractAppender
                 if (message.startsWith("<")
                         || message.startsWith("[Server")
                         || message.startsWith("[CONSOLE")
-                        || message.startsWith("[TotalFreedomMod] [ADMIN]"))
+                        || message.startsWith("[RubyFreedomMod] [ADMIN]"))
                 {
                     return;
                 }

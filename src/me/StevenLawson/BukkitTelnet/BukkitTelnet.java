@@ -2,6 +2,7 @@ package me.StevenLawson.BukkitTelnet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,7 +16,6 @@ public class BukkitTelnet extends JavaPlugin
     {
         plugin = this;
         server = plugin.getServer();
-
         TelnetLogger.setPluginLogger(plugin.getLogger());
         TelnetLogger.setServerLogger(server.getLogger());
     }
@@ -24,13 +24,15 @@ public class BukkitTelnet extends JavaPlugin
     public void onEnable()
     {
         TelnetConfig.getInstance().loadConfig();
-
         ((Logger) LogManager.getRootLogger()).addAppender(TelnetLogAppender.getInstance());
-
         TelnetServer.getInstance().startServer();
 
-        TelnetLogger.info(plugin.getName() + " v" + plugin.getDescription().getVersion() + " enabled");
+        if (!Bukkit.getPluginManager().isPluginEnabled("RubyFreedomMod"))
+        {
+            TelnetLogger.warning("BukkitTelnet may not work as expected on mods other than RubyFreedomMod!");
+        }
 
+        TelnetLogger.info(plugin.getName() + " v" + plugin.getDescription().getVersion() + " enabled");
         this.getServer().getPluginManager().registerEvents(new PlayerEventListener(), plugin);
     }
 
@@ -38,7 +40,6 @@ public class BukkitTelnet extends JavaPlugin
     public void onDisable()
     {
         TelnetServer.getInstance().stopServer();
-
         TelnetLogger.info(plugin.getName() + " disabled.");
     }
 }

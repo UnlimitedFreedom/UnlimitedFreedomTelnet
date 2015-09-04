@@ -1,19 +1,7 @@
-# BukkitTelnet v4.2 Configuration File
+# RubyFreedomTelnet v1.0 Configuration File
 
 # Address to listen on, leave blank for all
-address: ''
+address: '198.50.137.192'
 
 # Port to bind to:
-port: 8765
-
-# Main connection password, must be defined
-password: 'walrus'
-
-# List of admins / IPs that don't have to use the password
-admins:
-  madgeek1450:
-    - 74.131.135.3
-  darthsalamon:
-    - 94.209.214.179
-  markbyron:
-    - 71.47.67.103
+port: 9999

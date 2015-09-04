@@ -128,6 +128,7 @@ public class YamlConfig extends YamlConfiguration
      * Returns the default configuration as been stored in the jar-file of the owning plugin.
      * @return The default configuration.
      */
+    @SuppressWarnings("deprecation")
     public YamlConfiguration getDefaultConfig()
     {
         final YamlConfiguration DEFAULT_CONFIG = new YamlConfiguration();

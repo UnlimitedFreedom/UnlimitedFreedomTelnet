@@ -2,9 +2,8 @@ package me.StevenLawson.BukkitTelnet;
 
 import java.util.logging.Logger;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
+@SuppressWarnings("NonConstantLogger")
 public final class TelnetLogger
 {
     private static Logger serverLogger = null;

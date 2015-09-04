@@ -1,5 +1,9 @@
-name: BukkitTelnet
+name: RubyFreedomTelnet
 main: me.StevenLawson.BukkitTelnet.BukkitTelnet
 version: 4.2
 description: Telnet console access plugin.
 authors: [bekvon, Madgeek1450, DarthSalamon]
+
+commands:
+ bukkittelnet:
+  description: All the BukkitTelnet commands

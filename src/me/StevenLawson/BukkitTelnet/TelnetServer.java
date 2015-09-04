@@ -77,7 +77,7 @@ public class TelnetServer
         {
             return;
         }
-
+        
         socketListener.stopServer();
     }
 

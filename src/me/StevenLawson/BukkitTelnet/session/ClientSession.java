@@ -8,15 +8,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import me.StevenLawson.BukkitTelnet.BukkitTelnet;
 import me.StevenLawson.BukkitTelnet.PlayerEventListener;
-import me.StevenLawson.BukkitTelnet.TelnetConfig;
 import me.StevenLawson.BukkitTelnet.TelnetLogAppender;
 import me.StevenLawson.BukkitTelnet.TelnetLogger;
-import me.StevenLawson.BukkitTelnet.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -74,7 +70,7 @@ public final class ClientSession extends Thread
 
         if (!authenticate())
         {
-            writeLine("Authentication failed.");
+            writeLine("Authentication failed for " + username + ". Please verify on RubyFreedom before connecting to telnet.");
             syncTerminateSession();
         }
 
@@ -215,28 +211,6 @@ public final class ClientSession extends Thread
 
         boolean passAuth = false;
 
-        // Pre-authenticate IP addresses
-        if (clientAddress != null)
-        {
-            final Map<String, List<String>> admins = TelnetConfig.getInstance().getConfigEntries().getAdmins();
-
-            // For every admin
-            for (String name : admins.keySet())
-            {
-
-                // For every IP of each admin
-                for (String ip : admins.get(name))
-                {
-                    if (Util.fuzzyIpMatch(ip, clientAddress, 3))
-                    {
-                        passAuth = true;
-                        this.username = name;
-                        break;
-                    }
-                }
-            }
-        }
-
         // TelnetPreLoginEvent authentication
         final TelnetPreLoginEvent event = new TelnetPreLoginEvent(clientAddress, username, passAuth);
         Bukkit.getServer().getPluginManager().callEvent(event);
@@ -257,101 +231,12 @@ public final class ClientSession extends Thread
             passAuth = true;
         }
 
-        // Username
-        boolean validUsername = false;
-
-        int tries = 0;
-        while (tries++ < 3)
-        {
-            writeLine("Username: ");
-
-            String input;
-            try
-            {
-                input = reader.readLine();
-            }
-            catch (IOException ex)
-            {
-                break;
-            }
-
-            if (input == null)
-            {
-                break;
-            }
-            if (input.isEmpty())
-            {
-                continue;
-            }
-
-            input = AUTH_INPUT_FILTER.matcher(input).replaceAll("").trim();
-
-            if (input.isEmpty())
-            {
-                writeLine("Invalid username.");
-                continue;
-            }
-
-            this.username = input;
-            validUsername = true;
-            break;
-        }
-
-        if (!validUsername)
-        {
-            return false;
-        }
-
         // If the TelnetPreLoginEvent authenticates the password,
         // don't ask for it.
         if (passAuth)
         {
             return true;
         }
-
-        // Password
-        tries = 0;
-        while (tries++ < 3)
-        {
-            writeLine("Password: ");
-
-            String input;
-
-            try
-            {
-                input = reader.readLine();
-            }
-            catch (IOException ex)
-            {
-                break;
-            }
-
-            if (input == null)
-            {
-                break;
-            }
-            if (input.isEmpty())
-            {
-                continue;
-            }
-
-            input = AUTH_INPUT_FILTER.matcher(input).replaceAll("").trim();
-
-            if (TelnetConfig.getInstance().getConfigEntries().getPassword().equals(input))
-            {
-                return true;
-            }
-
-            writeLine("Invalid password.");
-            try
-            {
-                Thread.sleep(2000);
-            }
-            catch (InterruptedException ex)
-            {
-            }
-        }
-
         return false;
     }
 
@@ -456,6 +341,7 @@ public final class ClientSession extends Thread
         {
             enhancedMode = !enhancedMode;
             writeLine((enhancedMode ? "A" : "Dea") + "ctivated enhanced mode.");
+            TelnetLogger.info("BukkitTelnet for RubyFreedom fixed up by tylerhyperHD");
             if (enhancedMode)
             {
                 PlayerEventListener.triggerPlayerListUpdates();

@@ -140,6 +140,7 @@ public class SocketListener extends Thread
 
         for (ClientSession session : clientSessions)
         {
+            TelnetLogger.info("Telnet is going offline!");
             session.syncTerminateSession();
         }
 
