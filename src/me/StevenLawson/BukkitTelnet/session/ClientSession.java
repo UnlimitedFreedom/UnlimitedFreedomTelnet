@@ -70,7 +70,7 @@ public final class ClientSession extends Thread
 
         if (!authenticate())
         {
-            writeLine("Authentication failed for " + username + ". Please verify on RubyFreedom before connecting to telnet.");
+            writeLine("Authentication failed" + (username.isEmpty() ? "" : " for " + username) + ". Please verify on RubyFreedom before connecting to telnet.");
             syncTerminateSession();
         }
 
