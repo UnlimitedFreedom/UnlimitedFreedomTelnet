@@ -1,4 +1,4 @@
-name: RubyFreedomTelnet
+name: UnlimitedFreedomTelnet
 main: me.StevenLawson.BukkitTelnet.BukkitTelnet
 version: 4.2
 description: Telnet console access plugin.
