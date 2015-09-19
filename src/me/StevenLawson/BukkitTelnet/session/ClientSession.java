@@ -70,7 +70,7 @@ public final class ClientSession extends Thread
 
         if (!authenticate())
         {
-            writeLine("Authentication failed" + (username.isEmpty() ? "" : " for " + username) + ". Please verify on RubyFreedom before connecting to telnet.");
+            writeLine("Authentication failed" + (username.isEmpty() ? "" : " for " + username) + ". Please verify on UnlimitedFreedom before connecting to telnet.");
             syncTerminateSession();
         }
 
@@ -341,7 +341,6 @@ public final class ClientSession extends Thread
         {
             enhancedMode = !enhancedMode;
             writeLine((enhancedMode ? "A" : "Dea") + "ctivated enhanced mode.");
-            TelnetLogger.info("BukkitTelnet for RubyFreedom fixed up by tylerhyperHD");
             if (enhancedMode)
             {
                 PlayerEventListener.triggerPlayerListUpdates();

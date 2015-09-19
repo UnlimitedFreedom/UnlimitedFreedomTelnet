@@ -1,7 +1,7 @@
-# RubyFreedomTelnet v1.0 Configuration File
+# UnlimitedFreedomTelnet v1.0 Configuration File
 
 # Address to listen on, leave blank for all
-address: '198.50.137.192'
+address: '167.114.36.167'
 
 # Port to bind to:
-port: 9999
+port: 28966
